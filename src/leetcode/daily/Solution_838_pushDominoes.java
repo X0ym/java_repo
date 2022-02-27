@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.daily;
 
 class Solution_838_pushDominoes {
     public String pushDominoes(String dominoes) {

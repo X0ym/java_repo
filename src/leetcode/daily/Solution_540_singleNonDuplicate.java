@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.daily;
 
 class Solution_540_singleNonDuplicate {
     // O(N)

@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.daily;
 
 class Solution_917_reverseOnlyLetters {
     public String reverseOnlyLetters(String s) {

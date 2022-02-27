@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.daily;
 
 import java.util.*;
 
