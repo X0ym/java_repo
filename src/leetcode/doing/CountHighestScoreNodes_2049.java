@@ -1,0 +1,70 @@
+package leetcode.doing;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * https://leetcode-cn.com/problems/count-nodes-with-the-highest-score/
+ *
+ * 题目：parents[i] 是节点 i 的父节点。节点 0 是根节点， parents[0] == -1
+ *      一个子树的 大小 为这个子树内节点的数目。每个节点都有一个与之关联的 分数 。
+ *      求出某个节点分数的方法：将这个节点和与它相连的边全部 删除，剩余部分是若干个 非空 子树，这个节点的 分数 为所有这些子树 大小的乘积。
+ *      请你返回有 最高得分 节点的 数目
+ *
+ * 示例1
+ * 输入：parents = [-1,2,0,2,0]
+ * 输出：3
+ * 解释：
+ * - 节点 0 的分数为：3 * 1 = 3
+ * - 节点 1 的分数为：4 = 4
+ * - 节点 2 的分数为：1 * 1 * 2 = 2
+ * - 节点 3 的分数为：4 = 4
+ * - 节点 4 的分数为：4 = 4
+ * 最高得分为 4 ，有三个节点得分为 4 （分别是节点 1，3 和 4 ）。
+ *
+ * 来源：力扣（LeetCode）
+ * 链接：https://leetcode-cn.com/problems/count-nodes-with-the-highest-score
+ * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ */
+class CountHighestScoreNodes_2049 {
+    long maxScore = 0;
+    int cnt = 0;
+    int n;
+    List<Integer>[] children;
+
+    public int countHighestScoreNodes(int[] parents) {
+        n = parents.length;
+        children = new List[n];
+        for (int i = 0; i < n; i++) {
+            children[i] = new ArrayList<Integer>();
+        }
+        for (int i = 0; i < n; i++) {
+            int p = parents[i];
+            if (p != -1) {
+                children[p].add(i);
+            }
+        }
+        dfs(0);
+        return cnt;
+    }
+
+    public int dfs(int node) {
+        long score = 1;
+        int size = n - 1;
+        for (int c : children[node]) {
+            int t = dfs(c);
+            score *= t;
+            size -= t;
+        }
+        if (node != 0) {
+            score *= size;
+        }
+        if (score == maxScore) {
+            cnt++;
+        } else if (score > maxScore) {
+            maxScore = score;
+            cnt = 1;
+        }
+        return n - size;
+    }
+}
